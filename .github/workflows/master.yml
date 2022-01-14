@@ -19,20 +19,13 @@ jobs:
         echo "$JOB_ENVIRONMENT_VARIABLE"
         echo "$STEP_ENVIRONMENT_VARIABLE"
         echo "${{ secrets.PASSWORD }}"
+        
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Run following commands
-      run: |
-        ls -a
-        pwd
-        hostname
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
