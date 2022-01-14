@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Policy</title>
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+<header class="header navbar-fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="logo">
+                    <a class="logo-wrap" href="/">
+                        <img class="logo-img logo-img-main" src="img/logo123.png" alt="Asentus Logo">
+                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt="Asentus Logo">
+                    </a>
+                </div>
+                <!-- End Logo -->
+            </div>
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/myprofile">My Profile</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/mypolicies">My Policies</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                            Policy</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                             href="/login">Login</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover"
+                                                                href="/multicriteria">Multicriteria</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Navbar Collapse -->
+        </div>
+    </nav>
+    <!-- Navbar -->
+</header>
+
+<div class="carousel-inner" role="listbox">
+    <div class="item active">
+        <img class="img-responsive" src="img/1920x1080/04.jpg" alt="Slider Image">
+        <div class="container">
+            <div class="carousel-centered">
+                <div class="margin-b-40">
+                    <h2 style="color:whitesmoke">Create Policy</h2>
+                    <form class="form-horizontal" action="#" th:action="@{/policy}" th:object="${policyDTO}"
+                          enctype="multipart/form-data" method="post">
+                        <fieldset>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <h3>
+                                    <i th:if="${error}" style="color: red" th:text="${error}">
+                                        ERROR!
+                                    </i>
+                                </h3>
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="cubic_capacity">Offer
+                                    Code</label>
+                                <div class="col-md-4">
+                                    <input id="cubic_capacity" name="cubic_capacity" placeholder="Enter Offer Code"
+                                           class="form-control input-md" type="text"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           th:field="*{offerGUID}">
+                                </div>
+                            </div>
+
+                            <!-- Date input DATEFORMAT-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="effective_date">Choose
+                                    Effective Date of The Policy</label>
+                                <div class="col-md-4">
+                                    <input id="effective_date" name="effective_date" type="date"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           min="2019-14-08" required
+                                           th:value="*{effectiveDateOTP}" th:field="*{effectiveDateOTP}"/>
+                                    <label style="color: red" th:errors="*{effectiveDateOTP}">Invalid Date></label>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="first_name">First
+                                    Name</label>
+                                <div class="col-md-4">
+                                    <input id="first_name" name="first_name" placeholder="Enter First Name"
+                                           class="form-control input-md" type="text"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           minlength="3" maxlength="25" required
+                                           th:field="*{firstName}">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="middle_name">Middle
+                                    Name</label>
+                                <div class="col-md-4">
+                                    <input id="middle_name" name="middle_name" placeholder="Enter Middle Name"
+                                           class="form-control input-md" type="text"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           minlength="3" maxlength="25" required
+                                           th:field="*{middleName}">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="last_name">Last
+                                    Name</label>
+                                <div class="col-md-4">
+                                    <input id="last_name" name="last_name" placeholder="Enter Last Name"
+                                           class="form-control input-md" type="text"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           minlength="3" maxlength="25" required
+                                           th:field="*{lastName}">
+                                </div>
+                            </div>
+
+                            <!-- Date input DATEFORMAT-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="birth_date">Enter
+                                    Birth Date</label>
+                                <div class="col-md-4">
+                                    <input id="birth_date" name="birth_date" type="date"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           max="2001-10-08" required
+                                           th:value="*{birthDate}" th:field="*{birthDate}"/>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="email_address">Email
+                                    Address</label>
+                                <div class="col-md-4">
+                                    <input id="email_address" name="email_address" placeholder="Enter Email Address"
+                                           class="form-control input-md" type="email" required
+                                           style="background-color:transparent; color:whitesmoke"
+                                           th:field="*{email}">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="phone_number">Phone
+                                    Number</label>
+                                <div class="col-md-4">
+                                    <input id="phone_number" name="phone_number" placeholder="Enter Phone Number"
+                                           class="form-control input-md" type="number" required
+                                           style="background-color:transparent; color:whitesmoke"
+                                           th:field="*{phone}">
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="postal_address">Postal
+                                    Address</label>
+                                <div class="col-md-4">
+                                    <input id="postal_address" name="postal_address" placeholder="Enter Postal Address"
+                                           class="form-control input-md" type="text" required
+                                           style="background-color:transparent; color:whitesmoke"
+                                           th:field="*{postalAddress}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label"
+                                       for="registration_number_of_vehicle">Register Number of Vehicle</label>
+                                <div class="col-md-4">
+                                    <input id="registration_number_of_vehicle" name="registration_number_of_vehicle"
+                                           placeholder="Enter Registration Number Of Vehicle"
+                                           class="form-control input-md" type="text"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           min="7" max="8" required
+                                           th:field="*{registrationNumberOfVehicle}">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <label style="color:whitesmoke" class="col-md-4 control-label" for="upload_image">Upload
+                                Image of Vehicle registration Certificate</label>
+                            <div class="col-md-4" style="background-color:transparent; color:whitesmoke">
+                                <input id="upload_image" type="file" required name="imageFile" accept="image/*">
+                            </div>
+                        </div>
+
+                        <input style="background-color:transparent; color:whitesmoke" type="submit"
+                               value="Request Policy"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Offer</title>
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="logo">
+                    <a class="logo-wrap" href="/">
+                        <img class="logo-img logo-img-main" src="img/logo123.png" alt="Asentus Logo">
+                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt="Asentus Logo">
+                    </a>
+                </div>
+                <!-- End Logo -->
+            </div>
+
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/myprofile">My Profile</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/mypolicies">My Policies</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                            Policy</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                             href="/login">Login</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover"
+                                                                href="/multicriteria">Multicriteria</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Navbar Collapse -->
+        </div>
+    </nav>
+</header>
+
+<!-- Wrapper for slides -->
+<div class="carousel-inner" role="listbox">
+    <div class="item active">
+        <img class="img-responsive" src="img/1920x1080/04.jpg" alt="Slider Image">
+        <div class="container">
+            <div class="carousel-centered">
+                <div class="margin-b-40">
+                    <h2 style="color:whitesmoke">Create Offer</h2>
+                    <form class="form-horizontal" action="#" th:action="@{/offer}" th:object="${offer}" method="post">
+                        <fieldset>
+                            <br/>
+                            <div class="form-group">
+                                <h3>
+                                    <i th:if="${error}" style="color: red" th:text="${error}">
+                                        ERROR!
+                                    </i>
+                                </h3>
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="dropOperator">Select
+                                    Car Brand</label>
+                                <div class="col-md-4">
+                                    <select th:field="*{carBrand.brandId}" class="form-control" id="dropOperator"
+                                            style="background-color:transparent; color:whitesmoke" required>
+                                        <!--                                        <option value="0">Select Brand</option>-->
+                                        <option style="color: #0f0f0f"
+                                                th:each="carBrand : ${carBrands}" }
+                                                th:value="${carBrand.brandId}"
+                                                th:utext="${carBrand.getName()}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="dropOperator2">Select
+                                    Car Model</label>
+                                <div class="col-md-4">
+                                    <select th:field="*{carModel.modelId}" class="form-control" id="dropOperator2"
+                                            style="background-color:transparent; color:whitesmoke">
+                                        <!--                                        <option value="0">Select Model</option
+                                        >-->
+                                        <option style="color: #0f0f0f" th:each="carModel : ${carModels}"
+                                                th:value="${carModel.modelId}"
+                                                th:utext="${carModel.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="cubic_capacity">Cubic
+                                    Capacity</label>
+                                <div class="col-md-4">
+                                    <input id="cubic_capacity" name="cubic_capacity" placeholder="Enter Cubic Capacity"
+                                           class="form-control input-md" type="number"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           min="1" max="99999" required
+                                           th:field="*{cubicCapacity}">
+                                </div>
+                            </div>
+                            <!-- Date input DATEFORMAT-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="registration_date">Registration
+                                    Date</label>
+                                <div class="col-md-4">
+                                    <input id="registration_date" name="registration_date" type="date"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           max="2019-14-08" required
+                                           th:value="*{registrationDate}"
+                                           th:field="*{registrationDate}"/>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label" for="driver_age">Driver
+                                    Age</label>
+                                <div class="col-md-4">
+                                    <input id="driver_age" name="driver_age" placeholder="Enter Driver Age"
+                                           class="form-control input-md" type="number"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           min="18" max="120" required
+                                           th:field="*{driverAge}">
+                                </div>
+                            </div>
+
+                            <!-- YES OR NO BOOLEAN-->
+                            <div class="form-group">
+                                <label style="color:whitesmoke" class="col-md-4 control-label"
+                                       for="accident_in_previous_year">Accident/s in previous
+                                    year</label>
+                                <div class="col-md-4">
+                                    <input id="accident_in_previous_year" name="accident_in_previous_year"
+                                           placeholder="Did you have accident/s in the previous year?"
+                                           class="form-control input-md" type="checkbox" checked="checked"
+                                           style="background-color:transparent; color:whitesmoke"
+                                           th:field="*{accidentInPreviousYear}">
+                                </div>
+                            </div>
+                            <br/>
+                            <input style="background-color:transparent; color:whitesmoke" i type="submit" onclick=""
+                                   required value="Create Offer"/>
+                            <p id="create_error"></p>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

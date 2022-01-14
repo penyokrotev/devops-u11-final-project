@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>Contact us</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    <!-- GLOBAL MANDATORY STYLES -->
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- PAGE LEVEL PLUGIN STYLES -->
+    <link href="css/animate.css" rel="stylesheet">
+
+    <!-- THEME STYLES -->
+    <link href="/css/layout.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico"/>
+</head>
+<!-- END HEAD -->
+
+<!-- BODY -->
+<body>
+<header class="header navbar-fixed-top">
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="logo">
+                    <a class="logo-wrap" href="/">
+                        <img class="logo-img logo-img-main" src="img/logo123.png" alt="Asentus Logo">
+                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt="Asentus Logo">
+                    </a>
+                </div>
+                <!-- End Logo -->
+            </div>
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/myprofile">My Profile</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                                 href="/mypolicies">My Policies</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                            Policy</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                             href="/login">Login</a></li>
+                        <li class="nav-item">
+                        <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a>
+                        </li>
+
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+                        </li>
+                        <li class="nav-item">
+                        <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover"
+                                                                href="/multicriteria">Multicriteria</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Navbar Collapse -->
+        </div>
+    </nav>
+    <!-- Navbar -->
+</header>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img class="img-responsive" src="img/1920x1080/04.jpg" alt="Slider Image">
+            <div class="container">
+                <div class="carousel-centered">
+                    <div class="margin-b-40">
+                            <h2 class="color-white">Send Us A Mail</h2>
+                            <input type="text" class="form-control footer-input margin-b-20" placeholder="Name" required>
+                            <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
+                            <input type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required>
+                            <textarea class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required></textarea>
+                            <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+
+</body>
+<!-- END BODY -->
+</html>

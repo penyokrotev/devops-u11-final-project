@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User Policies</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                     href="/myprofile">My Profile</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                     href="/mypolicies">My Policies</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                Policy</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+            </li>
+
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                 href="/login">Login</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a></li>
+
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a></li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/multicriteria">Multicriteria</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="btn-group btn-group-primary">
+    <h3>
+        <i th:if="${error}" style="color: red" th:text="${error}">
+            ERROR!
+        </i>
+        <i th:if="${success}" style="color: green" th:text="${success}">
+            You Successfully updated the multicriteria!
+        </i>
+    </h3>
+    <button class="btn btn-primary" type="button">Sort By</button>
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button"><span class="caret"></span>
+    </button>
+
+    <ul class="dropdown-menu">
+        <li><a href="http://localhost:8080/mypolicies/date">View Policies By Date</a></li>
+
+    </ul>
+</div>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid" align="center">
+
+        <table>
+            <tr>
+                <th>
+
+                    <form class="navbar-form navbar-center" th:action="@{/mypolicies}" method="get">
+
+                        <input type="text" th:name="policyStatus" th:placeholder="policyStatus"/>
+
+                        <button class="btn btn-default" type="submit">Search</button>
+                    </form>
+                </th>
+            </tr>
+        </table>
+    </div>
+</nav>
+<table class="table table-striped table-condensed">
+    <thead>
+    <tr>
+        <th th:text="#{policies.header.mail}">Email</th>
+        <th th:text="#{policies.header.name}">Name</th>
+        <th th:text="#{policies.header.totalPremium}">Total Premium Cost</th>
+        <th th:text="#{policies.header.date}">Effective Start of Policy</th>
+        <th th:text="#{policies.header.status}">Status of the policy</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="policy:${policies}">
+        <td th:text="${policy.getUser().getEmail()}"></td>
+        <td th:text="${policy.getFirstName()} + ' ' + ${policy.getMiddleName()} + ' ' + ${policy.getLastName()}"></td>
+        <td th:text="${policy.offer.getTotalPremium()}"></td>
+        <td th:text="${policy.getEffectiveDateOfThePolicy()}"></td>
+        <td th:switch="${policy.getStatus().getStatus()}">
+            <form method="get" th:action="@{/mypolicies/{id}(id=${policy.getPolicyId()})}">
+                <button th:if="${policy.getStatus().getStatus()}=='ACCEPTED'" type="submit"
+                        style="width: 80px" class="btn btn-success">
+                    Accepted
+                </button>
+                <button th:if="${policy.getStatus().getStatus()}=='REJECTED'" type="submit"
+                        style="width: 80px" class="btn btn-danger">
+                    Rejected
+                </button>
+                <button th:if="${policy.getStatus().getStatus()}=='CANCELLED'" type="submit"
+                        style="width: 80px" class="btn btn-warning">
+                    Cancelled
+                </button>
+                <button th:if="${policy.getStatus().getStatus()}=='PENDING'" type="submit"
+                        style="width: 80px" class="btn btn-secondary">
+                    Pending
+                </button>
+            </form>
+        </td>
+    </tbody>
+</table>
+
+<div th:if="${myPolicyPage.totalPages > 0}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/mypolicies/(size=${myPolicyPage.size}, page=${pageNumber})}"
+       th:text="${pageNumber}"
+       th:class="${pageNumber==myPolicyPage.number + 1} ? active"></a>
+</div>
+</body>
+</html>

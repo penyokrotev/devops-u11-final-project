@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+
+<!--//my policies-->
+<!--my profile-->
+<!--create offer-->
+<!--create policy-->
+<!--home page <contact, about us>-->
+<!--logout-->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Safety Car</a>
+
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">
+                <img src="https://paktech-opi.com/wp-content/uploads/2018/08/car-icon-01-300x300.png" height="20">
+            </a>
+            </li>
+            <li sec:authorize="isAuthenticated()"><a href="/policie">myProfile</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/wish">wish</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/drank">drank</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/beers/new">create</a></li>
+            <li sec:authorize="hasRole('ADMIN')"><a href="/admin">admin</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li sec:authorize="isAnonymous()"><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+            </li>
+            <li sec:authorize="isAnonymous()"><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login
+            </a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/logout"><span class="glyphicon glyphicon-log-out"></span>
+                Logout </a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+            <A href="/users/{id}/edit">Edit Profile</A>
+
+            <A href="/">Logout</A>
+            <br>
+            <!--            <p class=" text-info">May 05,2014,03:00 pm </p>-->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+            <!--            email, first, middle, last names, birth date, picture, phone number, postal address-->
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">User Profile</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 col-lg-3 " align="center">
+                            <div>
+                                <p><a th:href="@{{link}(link=${user.picture})}" target="_blank">
+                                    <img th:src="${user.picture}" th:alt="${user.picture}" width="550" height="350"></a>
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <div class="col-sm-9">
+                                                <form class="form" id="userUpdateForm" name="userUpdateForm">
+                                                    <div class="form-group">
+                                                        <div class="col-xs-6">
+                                                            <label for="first_name"><h4>First name</h4></label>
+                                                            <input type="text" class="form-control" id="first_name"
+                                                                   title="Enter new first name if you want to change it"
+                                                                   th:placeholder="${user.firstName}"
+                                                                   th:value="${user.firstName}"
+                                                                   name="firstName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-xs-6">
+                                                            <label for="middle_name"><h4>Middle name</h4></label>
+                                                            <div>
+                                                                <input type="text" class="form-control" id="middle_name"
+                                                                       title="Enter your middle name if you want to change it"
+                                                                       th:placeholder="${user.middleName}"
+                                                                       th:value="${user.middleName}"
+                                                                       name="middleName">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-xs-6">
+                                                            <label for="last_name"><h4>Last name</h4></label>
+                                                            <input type="text" class="form-control" id="last_name"
+                                                                   title="Enter your last name if you want to change it"
+                                                                   th:placeholder="${user.lastName}"
+                                                                   th:value="${user.lastName}"
+                                                                   name="lastName">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </tr>
+                                        <tr>
+                                            <td>Date of Birth:</td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <div class="col-xs-6">
+                                                        <input type="text" class="form-control" id="date_of_birth"
+                                                               title="Enter your date of birth if you want to change it"
+                                                               th:placeholder="${user.birthDate}"
+                                                               th:value="${user.birthDate}"
+                                                               name="birth_date">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Postal Address</td>
+                                            <td><div class="form-group">
+                                                <div class="col-xs-6">
+                                                    <input type="text" class="form-control" id="postal_address"
+                                                           title="Enter your postal address if you want to change it"
+                                                           th:placeholder="${user.postalAddress}"
+                                                           th:value="${user.postalAddress}"
+                                                           name="birth_date">
+                                                </div>
+                                            </div></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><div class="form-group">
+                                                <div class="col-xs-6">
+                                                    <input type="text" class="form-control" id="email"
+                                                           title="Enter your email if you want to change it"
+                                                           th:placeholder="${user.email}"
+                                                           th:value="${user.email}"
+                                                           name="email">
+                                                </div>
+                                            </div></td>
+                                        </tr>
+                                        <td>Phone Number</td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="col-xs-6">
+                                                    <input type="text" class="form-control" id="phone_number"
+                                                           title="Enter your phone number if you want to change it"
+                                                           th:placeholder="${user.phoneNumber}"
+                                                           th:value="${user.phoneNumber}"
+                                                           name="phone_number">
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        </tbody>
+                                    </table>
+
+                                    <a href="#" class="btn btn-primary">My Policies</a>
+                                    <!--                            <a href="#" class="btn btn-primary">Team Sales Performance</a>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button"
+                               class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                            <span class="pull-right">
+                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button"
+                               class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a data-original-title="Remove this user" data-toggle="tooltip" type="button"
+                               class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                        </span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

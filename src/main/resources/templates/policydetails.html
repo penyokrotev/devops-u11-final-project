@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Policy Details</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                     href="/myprofile">My Profile</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                     href="/mypolicies">My Policies</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                Policy</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+            </li>
+
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                 href="/login">Login</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a></li>
+
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a></li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/multicriteria">Multicriteria</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<table class="table table-striped table-condensed">
+    <thead>
+    <tr>
+        <th class="tg-0fr8">Car Brand</th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().getCarBrand().getName()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Car Model</th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().getCarModel().getName()}"
+            style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Cubic Capacity</th>
+        <th class="tg-4ea1" th:text="${ policy.getOffer().getCubicCapacity()}" style="font-weight: bold"></th>
+    </tr>
+
+
+    <tr>
+        <th class="tg-0fr8">Registration Date</th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().getRegistrationDate()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Driver Age:<br></th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().getDriverAge()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Accidents in Previous Year<br></th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().isAccidentInPreviousYear()}" style="font-weight: bold"></th>
+    </tr>
+
+
+    <tr>
+        <th class="tg-0fr8">Total Premium<br></th>
+        <th class="tg-4ea1" th:text="${policy.getOffer().getTotalPremium()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Image<br></th>
+
+        <a th:href="@{{link}(link=${policy.getImageOfVehicleRegistrationCertificate()})}" target="_blank">
+        <img th:href="${policy.getImageOfVehicleRegistrationCertificate()}" th:src="${policy.getImageOfVehicleRegistrationCertificate()}" width="300px"
+             height="300px" border="3"></a>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">User Who Created It<br></th>
+        <th class="tg-4ea1" th:text="${policy.getUser().getEmail()}"
+            th:href="@{/users/{id}(id=${policy.getUser().getId()})}" style="font-weight: bold"></th>
+    </tr>
+
+
+    <tr>
+        <th class="tg-0fr8">Full Name<br></th>
+        <th class="tg-4ea1"
+            th:text="${policy.getFirstName()} + ' ' + ${policy.getMiddleName()} + ' ' + ${policy.getLastName()}"
+            style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Birth Date<br></th>
+        <th class="tg-4ea1" th:text="'Birth Date: ' + ${policy.getBirthDate()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Email<br></th>
+        <th class="tg-4ea1" th:text="'Email: ' + ${policy.getEmail()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Phone<br></th>
+        <th class="tg-4ea1" th:text="'Phone: ' + ${policy.getPhone()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Postal Address<br></th>
+        <th class="tg-4ea1" th:text="'Postal address: ' + ${policy.getPostalAddress()}" style="font-weight: bold"></th>
+    </tr>
+
+    <tr>
+        <th class="tg-0fr8">Registration Number of the Vehicle<br/></th>
+        <th class="tg-4ea1" th:text=" ${policy.getRegistrationNumberOfVehicle()}"
+            style="font-weight: bold"></th>
+    </tr>
+
+
+    </thead>
+</table>
+
+
+<form th:if="${policy.getStatus().getStatus()}=='PENDING'" th:action="@{../mypolicies/{id}(id=${policy.getPolicyId()})}"
+      method="post">
+    <button type="submit" value="Cancel  Policy">Cancel Policy</button>
+</form>
+
+</body>
+</html>
+
+
+<!--<td img th:href="${policy.getImageOfVehicleRegistrationCertificate()}"-->
+<!--    th:src="${policy.getImageOfVehicleRegistrationCertificate()}" width="300px"-->
+<!--    height="300px" border="3">-->

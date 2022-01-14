@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="../css/userProfile.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover"
+                                                     href="/mypolicies">My Policies</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/policy">Create
+                Policy</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAuthenticated()"><a class="nav-item-child nav-item-hover" href="/logout">Logout</a>
+            </li>
+
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/register">Register</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover"
+                                                 href="/login">Login</a></li>
+            <li class="nav-item">
+            <li sec:authorize="isAnonymous()"><a class="nav-item-child nav-item-hover" href="/contact">Contact</a></li>
+
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/users">Users</a></li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/policies">Policies</a>
+            </li>
+            <li class="nav-item">
+            <li sec:authorize="hasRole('ADMIN')"><a class="nav-item-child nav-item-hover" href="/multicriteria">Multicriteria</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img th:src="${user.picture}" alt=""/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5 th:text="${user.email}">EMAIL</h5>
+                    <h6 th:text="${user.birthDate}">BIRTH DATE</h6>
+                    <p class="proile-rating"><span></span></p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                               aria-controls="home" aria-selected="true">Personal Information</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <input sec:authorize="hasRole('USER')" type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p></p>
+                    <a href=""></a><br/>
+                    <a href=""></a><br/>
+                    <a href=""></a>
+                    <p></p>
+                    <a href=""></a><br/>
+                    <a href=""></a><br/>
+                    <a href=""></a><br/>
+                    <a href=""></a><br/>
+                    <a href=""></a><br/>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.firstName}">User</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Middle Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.middleName}">Userov</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.lastName}">Userski</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Phone Number</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.phoneNumber}">123 456 7890</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Postal Address</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p th:text="${user.postalAddress}">Postal Address
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Country</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Bulgaria</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>City</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Sofia</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>JK</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Ivan Vazov</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Street</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>Vitoshka 92</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Building</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>36A</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label></label><br/>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</form>
+</div>
+</body>
+</html>

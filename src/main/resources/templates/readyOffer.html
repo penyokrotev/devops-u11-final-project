@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Offer</title>
+    <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+
+<header class="header navbar-fixed-top">
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <div class="menu-container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="toggle-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="logo">
+                    <a class="logo-wrap" href="/">
+                        <img class="logo-img logo-img-main" src="img/logo123.png" alt="Asentus Logo">
+                        <img class="logo-img logo-img-active" src="img/logo-dark.png" alt="Asentus Logo">
+                    </a>
+                </div>
+                <!-- End Logo -->
+            </div>
+
+            <div class="collapse navbar-collapse nav-collapse">
+                <div class="menu-container">
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover active" href="/">Home</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/offer">Create Offer</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-item-child nav-item-hover" href="/">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- End Navbar Collapse -->
+        </div>
+    </nav>
+</header>
+<!-- Wrapper for slides -->
+<div class="carousel-inner" role="listbox">
+    <div class="item active">
+        <img class="img-responsive" src="img/1920x1080/04.jpg" alt="Slider Image">
+        <div class="container">
+            <div class="carousel-centered">
+                <div class="margin-b-40">
+                    <div class="form-group">
+                        <h4 style="color:whitesmoke">Your offer code:</h4>
+                        <input width="400px" style="background-color:transparent; color:whitesmoke" type="text"
+                               class="form-control" id="guid"
+                               title="GUID"
+                               th:placeholder="${offerGUID}"
+                               th:value="${offerGUID}"
+                               name="offerGuid">
+                    </div>
+                </div>
+                <br/>
+
+                <h4 style="color:whitesmoke">Price:</h4>
+                <p style="color:whitesmoke" th:text="${totalPremium}">Total Premium</p>
+                <br/>
+                <br/>
+                <div sec:authorize="isAuthenticated()">
+                    <form action="/policy">
+                        <button style="background: transparent; color:whitesmoke" href="/policy" class="nav-link">
+                            Proceed to Policy
+                        </button>
+                    </form>
+                </div>
+                <br/> <br/>
+                <div sec:authorize="isAnonymous()">
+                    <form action="/register">
+                        <button style="background: transparent; color:whitesmoke" href="/register" class="nav-link">
+                            Register to proceed
+                        </button>
+                    </form>
+                    <form action="/login">
+                        <button style="background: transparent; color:whitesmoke; float: right; margin-left: 15px"
+                                href="/login" class="nav-link">Login to proceed
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
