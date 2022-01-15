@@ -9,8 +9,7 @@ RUN whoami
 RUN ls -lah
 RUN gradle clean build --stacktrace
 
-#FROM alpine:3.14
-FROM openjdk:8-jre-slim
+FROM openjdk:8-jre-alpine
 RUN mkdir /app
 COPY --from=builder "/project/build/libs/final-project-0.0.1-SNAPSHOT.jar" "/app/app.jar"
 WORKDIR /app
