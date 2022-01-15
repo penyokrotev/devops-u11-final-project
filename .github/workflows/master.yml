@@ -33,4 +33,4 @@ jobs:
     - name: Build the Docker image
       run: | 
         docker build . --file Dockerfile --tag penyo/devops-u11:$GITHUB_SHA
-        docker push penyo/devops-u11:$GITHUB_RUN_ID
+        docker push penyo/devops-u11:$GITHUB_SHA
