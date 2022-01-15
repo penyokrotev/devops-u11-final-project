@@ -35,6 +35,7 @@ jobs:
         echo "${{ secrets.PASSWORD }}"
               
   build:
+    needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo code
