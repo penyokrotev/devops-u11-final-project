@@ -53,7 +53,7 @@ public class PolicyServiceImplTests {
     public void checkIfDriverAgeIsValidShouldReturnTrue() {
 
         LocalDate date = LocalDate.of(2000, Month.AUGUST, 9);
-        int birthDate = 19;
+        int birthDate = 21;
 
         Assert.assertTrue(policyService.checkIfDriverAgeIsValid(date, birthDate));
     }
@@ -129,7 +129,7 @@ public class PolicyServiceImplTests {
         Mockito.when(mockFileSaver.checkIfImageTypeIsValid("jpg")).thenReturn("jpg");
         Mockito.when(mockOfferRepository.getByUUID("GUID")).thenReturn(new Offer(2, carBrand, carModel, 1900, LocalDate.of(
                 2005, Month.APRIL, 30),
-                28, true, new BigDecimal(1200), ""));
+                31, true, new BigDecimal(1200), ""));
         Mockito.when(mockUserService.getCurrentUser()).thenReturn(new User(1, "user@mail.com", "First Name", "Middle Name",
                 "Last Name", LocalDate.of(1994, Month.JANUARY, 1), null, "0876765324", ""));
         Mockito.when(mockPolicyRepository.getStatusById(1)).thenReturn(new StatusType());

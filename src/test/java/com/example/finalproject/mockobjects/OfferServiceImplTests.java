@@ -185,7 +185,7 @@ public class OfferServiceImplTests {
 
     @Test(expected = InvalidDateException.class)
     public void checkIfDateIsValidShouldReturnFalse() {
-        registrationDate = LocalDate.of(2020, Month.DECEMBER, 30);
+        registrationDate = LocalDate.of(2025, Month.DECEMBER, 30);
         offerService.checkIfRegistrationDateIsValid(registrationDate);
     }
 
