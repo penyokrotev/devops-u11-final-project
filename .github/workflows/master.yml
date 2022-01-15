@@ -52,3 +52,14 @@ jobs:
     - name: Pull the Docker image
       run: | 
         docker pull penyo/devops-u11:$GITHUB_SHA
+        echo -n "verifying images:"
+        docker images
+    - name: Deploy to minikube
+      run:
+        kubectl apply -f deploy/deploy-minikube.yaml
+    - name: Test service URLs
+      run: |
+        minikube service list
+        minikube service discover --url
+        echo -n "------------------opening the service------------------"
+        curl $(minikube service discover --url)/version
