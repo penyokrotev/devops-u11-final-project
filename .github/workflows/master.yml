@@ -8,7 +8,7 @@ on:
 jobs:
 
   sonar:
-    name: Build
+    name: Sonar
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
