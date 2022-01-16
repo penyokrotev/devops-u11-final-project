@@ -7,7 +7,7 @@ RUN chown -R gradle /project
 USER gradle 
 RUN whoami
 RUN ls -lah
-RUN gradle clean build --stacktrace
+RUN gradle clean build jacocoTestReport sonarqube --info
 
 FROM openjdk:8-jre-alpine
 RUN mkdir /app
