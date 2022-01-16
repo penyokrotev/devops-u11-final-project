@@ -62,4 +62,6 @@ sonarqube {
     property 'sonar.host.url', 'https://sonarcloud.io'
     property 'sonar.organization', 'penyokrotev'
     property 'sonar.projectKey', 'devops-u11-final-project'
+    property 'sonar.login', ${{ secrets.SONAR_TOKEN }}
   }
+ } 
