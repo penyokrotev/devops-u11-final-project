@@ -1,0 +1,11 @@
+name: Master branch
+on:  
+  push:
+    branches:
+      - master
+jobs:
+  scan:
+    name: Scan image for vulnerabilities     
+      uses: azure/container-scan@v0
+      with: 
+        image-name: penyo/devops-u11:fdd683e14db4fd9d60e2130b12e265f447911788
