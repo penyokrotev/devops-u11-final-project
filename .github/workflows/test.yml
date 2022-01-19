@@ -4,9 +4,17 @@ on:
     branches:
       - master
 jobs:
-  scan:
+  deploy:
+    name: Deploy my app
+
     runs-on: ubuntu-latest
+
     steps:
-     - uses: azure/container-scan@v0
-       with: 
-         image-name: penyo/devops-u11:fdd683e14db4fd9d60e2130b12e265f447911788
+      - uses: actions/checkout@v1
+      - uses: chrnorm/deployment-action@releases/v1
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: "${{ github.token }}"
+          target_url: http://my-app-url.com
+          environment: production
