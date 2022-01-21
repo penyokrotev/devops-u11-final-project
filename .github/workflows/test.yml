@@ -1,4 +1,4 @@
-name: Scan
+name: Variables
 on:  
   push:
     branches:
@@ -16,3 +16,5 @@ jobs:
          echo $GITHUB_SHA
          echo $GITHUB_SHA > file.txt
          ls -la
+         cat file.txt
+         envsubst --help
